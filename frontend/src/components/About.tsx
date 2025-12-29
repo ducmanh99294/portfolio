@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import '../assets/about.css';
+import a2 from '../public/a2.png'
 
 // Đăng ký Plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -68,7 +69,7 @@ const About: React.FC = () => {
         <div className="about-content">
           <div className="about-img">
             <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80" 
+              src={a2} 
               alt="Profile" 
             />
           </div>
