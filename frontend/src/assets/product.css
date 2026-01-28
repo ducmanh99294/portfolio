@@ -1,7 +1,7 @@
 /* product.css */
 
 /* Reset cơ bản */
-* {
+.product-page * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;

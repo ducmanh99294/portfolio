@@ -1,29 +1,6 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import Footer from './Footer';
 import '../assets/feedback.css';
-
-interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  company: string;
-  avatar: string;
-  rating: number;
-  content: string;
-  projectType: string;
-  tags: string[];
-  date: string;
-}
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  client: string;
-  duration: string;
-}
+import { Testimonial, Project } from '../types/feedback';
 
 const Feedback: React.FC = () => {
   const [rating, setRating] = useState<number>(0);
@@ -207,7 +184,6 @@ const Feedback: React.FC = () => {
 
   return (
     <div className="feedback-page">
-      <Header />
       
       <div className="feedback-container">
         {/* Header Section */}
@@ -240,7 +216,7 @@ const Feedback: React.FC = () => {
           </div>
 
           <div className="testimonials-grid">
-            {testimonials.map((testimonial) => (
+            {testimonials.slice(0,3).map((testimonial) => (
               <div className="testimonial-card" key={testimonial.id}>
                 <div className="testimonial-header">
                   <div className="client-avatar">
@@ -278,7 +254,7 @@ const Feedback: React.FC = () => {
         </div>
 
         {/* Feedback Form Section */}
-        <div className="feedback-form-section">
+        {/* <div className="feedback-form-section">
           <div className="form-header">
             <h2>Share Your Experience</h2>
             <p>We value your feedback. Help us improve by sharing your thoughts about working with us.</p>
@@ -415,7 +391,7 @@ const Feedback: React.FC = () => {
               <i className="fas fa-paper-plane"></i> Submit Feedback
             </button>
           </form>
-        </div>
+        </div> */}
 
         {/* Recent Projects Showcase */}
         <div className="projects-showcase">
@@ -457,15 +433,13 @@ const Feedback: React.FC = () => {
               Start a Conversation
             </a>
             
-            <a href="/process" className="cta-btn cta-btn-secondary">
+            <a href="/#process" className="cta-btn cta-btn-secondary">
               <i className="fas fa-play-circle"></i>
               See Our Process
             </a>
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

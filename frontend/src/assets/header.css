@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: rgba(30, 30, 30, 0.35);
+  background-color: rgba(30, 30, 30, 0);
   padding: 20px 0;
   z-index: 1000;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -69,6 +69,25 @@ nav ul li a:hover::after {
   cursor: pointer;
 }
 
+.cart-link {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--color-primary);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 @media (max-width: 768px) {
   .menu-toggle {
     display: block;

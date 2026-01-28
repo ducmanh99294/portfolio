@@ -133,7 +133,7 @@ const WorkProcess: React.FC = () => {
   };
 
   return (
-    <div className="work-process-page">
+    <div className="work-process-page" id="process">
       <div className="work-process-container">
         {/* Header Section */}
         <div className="work-process-header">

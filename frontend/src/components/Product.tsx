@@ -1,6 +1,7 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap'; // 1. Import GSAP
 import '../assets/product.css';
+import { Link } from 'react-router-dom';
 
 const SimpleProductsPage: React.FC = () => {
   // Dữ liệu sản phẩm
@@ -157,7 +158,9 @@ const SimpleProductsPage: React.FC = () => {
                 </button>
               ))}
               
-              <div className="more-text">more</div>
+              <Link to={"/products"}><div className="more-text">
+                more</div>
+              </Link>
             </div>
 
             {/* Cột phải */}
