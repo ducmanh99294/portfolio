@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useCart } from '../context/CartContext';
 import { getMe } from '../api/userApi';
+import { useNotify } from '../hooks/UseNotification';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,11 +13,17 @@ const Header: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
+  const notify = useNotify();
 
   const handleCheckLogin = async () => {
      try {
       await getMe();
     } catch {
+      notify.warning(
+        'Please log in to enter your cart',
+        'Authentication required',
+        { duration: 3000 }
+      );
       navigate("/login", {
         state: { redirectTo: window.location.pathname },
       });
@@ -35,8 +42,8 @@ const Header: React.FC = () => {
           <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
         </div>
 
-        <nav className={isMenuOpen ? 'active' : ''}>
-          <ul>
+        <nav >
+          <ul className={isMenuOpen ? 'active' : ''}>
             <li><HashLink smooth to="/#" onClick={closeMenu}>Home</HashLink></li>
             <li><HashLink smooth to="/products" onClick={closeMenu}>Products</HashLink></li>
             <li><HashLink smooth to="/#contact" onClick={closeMenu}>Contact</HashLink></li>
