@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { ContactInfo } from '../types';
 import '../assets/contact.css';
+import { postContact } from '../api/contactApi';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
-
   const contactInfo: ContactInfo[] = [
     { type: 'Address', value: 'Danang, Vietnam', icon: 'fas fa-map-marker-alt' },
     { type: 'Email', value: 'contact@3darch.com', icon: 'fas fa-envelope' },
@@ -26,14 +27,25 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    alert('Thank you for your message! I will respond as soon as possible.');
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
+    try{
+      postContact(
+        formData.email,
+        formData.message,
+        formData.name,
+        formData.phone,
+        formData.subject
+      )
+      alert('Thank you for your message! I will respond as soon as possible.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+    } catch (e) {
+      console.log(e)
+    }
   };
 
   return (
@@ -95,7 +107,18 @@ const Contact: React.FC = () => {
                   required
                 />
               </div>
-              
+
+              <div className="form-group">
+                <input
+                  type="phone"
+                  name="phone"
+                  placeholder="Phone number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>  
+
               <div className="form-group">
                 <input
                   type="text"

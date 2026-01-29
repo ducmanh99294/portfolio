@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import '../assets/header.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useCart } from '../context/CartContext';
+import { getMe } from '../api/userApi';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { getTotalItems } = useCart(); // ✅ LẤY TỪ CONTEXT
+  const { getTotalItems } = useCart();
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
-  const totalItems = getTotalItems(); // ✅ reactive
-
+  const handleCheckLogin = async () => {
+     try {
+      await getMe();
+    } catch {
+      navigate("/login", {
+        state: { redirectTo: window.location.pathname },
+      });
+    }
+  };  
+  const totalItems = getTotalItems();
+  
   return (
     <header className="header">
       <div className="container header-container">
@@ -31,7 +42,14 @@ const Header: React.FC = () => {
             <li><HashLink smooth to="/#contact" onClick={closeMenu}>Contact</HashLink></li>
 
             <li>
-              <Link to="/cart" onClick={closeMenu} className="cart-link">
+              <Link
+                  to="/cart"
+                  onClick={() => {
+                    closeMenu();
+                    handleCheckLogin();
+                  }}
+                  className="cart-link"
+                >
                 <i className="fas fa-shopping-cart"></i>
                 {totalItems > 0 && (
                   <span className="cart-badge">{totalItems}</span>

@@ -3,9 +3,9 @@ import '../assets/product2.css';
 import { Link, useNavigate } from 'react-router-dom';
 import {Product3D} from '../types/product';
 import { useNotify } from '../hooks/UseNotification';
-import {getMe} from '../api/userApi';
 import { getProduct } from '../api/productApi';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const ProductPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -20,6 +20,7 @@ const ProductPage: React.FC = () => {
   const notify = useNotify();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -290,13 +291,38 @@ const ProductPage: React.FC = () => {
   };
 
   const handleAddToCart = async (product: any) => {
-     try {
-      await getMe(); // chỉ check login
+    if (!isAuthenticated) {
+      notify.warning(
+        'Please log in to add products to your cart',
+        'Authentication required',
+        { duration: 3000 }
+      );
+        navigate('/login', {
+          state: { redirectTo: window.location.pathname },
+        });
+      return;
+    }
+
+    try {
       await addToCart(product._id);
+
+      notify.success(
+        'Product has been added to your cart',
+        'Success',
+        { duration: 3000 }
+      );
     } catch {
-      navigate("/login", {
-        state: { redirectTo: window.location.pathname },
-      });
+      notify.error(
+        'Failed to add product to cart',
+        'Error',
+        {
+          duration: 3000,
+          action: {
+            label: 'View cart',
+            onClick: () => navigate('/cart'),
+          },
+        }
+      );
     }
   };
 

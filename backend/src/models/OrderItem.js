@@ -15,9 +15,6 @@ const orderItemSchema = new mongoose.Schema({
 
   quantity: Number,
   price: Number,
-
-  color: String,
-  material: String,
   note: String
 
 }, { timestamps: true });

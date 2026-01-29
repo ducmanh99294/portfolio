@@ -13,7 +13,8 @@ export interface ProductDetail {
   polyCount: string;
   dimensions: string;
   weight: string;
-  materials: { name: string; icon: string }[];
+  materials: string[];
+  colors: string[];
   features: string[];
   softwareCompatible: string[];
   rating: number;

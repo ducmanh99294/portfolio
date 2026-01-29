@@ -19,8 +19,6 @@ const cartItemSchema = new mongoose.Schema({
     min: 1
   },
 
-  color: String,
-  material: String,
   note: String
 
 }, { timestamps: true });

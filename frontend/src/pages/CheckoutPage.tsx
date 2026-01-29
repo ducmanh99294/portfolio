@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import '../assets/checkout.css';
 import {FormErrors,PaymentInfo,ShippingAddress} from '../types/checkout';
+import { create } from 'domain';
+import { createOrder } from '../api/checkoutApi';
 
 const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
@@ -114,14 +116,14 @@ const CheckoutPage: React.FC = () => {
   };
   
   const handlePlaceOrder = async () => {
-    setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      await createOrder(shippingAddress)
       setIsLoading(false);
-      setShowSuccessModal(true);
-      clearCart();
-    }, 2000);
+      setShowSuccessModal(true);     
+    } catch (e) {
+      console.log(e)
+    }
   };
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -866,7 +868,7 @@ const CheckoutPage: React.FC = () => {
               
               <button 
                 className="modal-btn modal-btn-primary"
-                onClick={() => navigate('/3d-products')}
+                onClick={() => navigate('/products')}
               >
                 <i className="fas fa-shopping-bag"></i> Continue Shopping
               </button>

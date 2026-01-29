@@ -2,7 +2,7 @@ const Contact = require("../models/Contact");
 
 exports.createContact = async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, subject, message } = req.body;
 
     if (!name || !email || !message) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -13,6 +13,7 @@ exports.createContact = async (req, res) => {
       name,
       email,
       phone,
+      subject,
       message
     });
 

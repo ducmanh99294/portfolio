@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import '../assets/productDetail.css';
-import AddToCartButton from '../components/AddToCartButton';
 import { ProductDetail } from '../types/productDetail'
 import {getProductById} from "../api/productApi";
+import { useNotify } from '../hooks/UseNotification';
+import { useAuth } from '../context/AuthContext';
 
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams();
@@ -11,8 +12,10 @@ const ProductDetailPage: React.FC = () => {
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
-  const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d');
+  const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d');
   const [selectedMaterial, setSelectedMaterial] = useState<string>('');
+  const notify = useNotify();
+  const { user, isAuthenticated } = useAuth();
   useEffect(() => {
         const fetchProducts = async () => {
           if(!id) return;
@@ -256,7 +259,18 @@ const ProductDetailPage: React.FC = () => {
     setViewMode(mode);
     if (mode === '2d') {
       // Reset to first image when switching to 2D
-      setActiveImage(0);
+      setActiveImage(1);
+    }
+    if (mode === '3d' && !isAuthenticated) {
+      notify.warning(
+        'Please log in to seen 3d model',
+        'Authentication required',
+        { duration: 3000 }
+      );
+        navigate('/login', {
+          state: { redirectTo: window.location.pathname },
+        });
+      return;
     }
   };
 
@@ -390,19 +404,7 @@ const ProductDetailPage: React.FC = () => {
                 >
                   <i className="fas fa-shopping-cart"></i> Order Physical Product
                 </button>
-            <AddToCartButton product={{
-              id: product.id,
-              name: product.name,
-              category: product.category,
-              description: product.description,
-              price: product.price,
-              images: product.images,
-              type: 'physical', // hoặc '3d-model'
-              fileFormat: product.fileFormat,
-              fileSize: product.fileSize,
-              dimensions: product.dimensions,
-              // materials: product.materials
-            }} />
+
                 {product.has3D ? (
                   <button 
                     className="action-btn action-btn-secondary"
@@ -443,8 +445,14 @@ const ProductDetailPage: React.FC = () => {
                 <div className="spec-item">
                   <i className="fas fa-weight"></i>
                   <div className="spec-content">
-                    <h4>Weight</h4>
-                    <p>{product.weight}</p>
+                    <h4>Colors</h4>
+                  {product?.colors?.map((color: string, index: any) => (
+                    <div className="spec-item" key={index}>
+                      <div className="spec-content">
+                        <p>{color}</p>
+                      </div>
+                    </div>
+                  ))}
                   </div>
                 </div>
 
@@ -474,10 +482,9 @@ const ProductDetailPage: React.FC = () => {
             <div className="materials-section">
               <h3 className="section-title">Materials</h3>
               <div className="materials-list">
-                {product.materials.map((material, index) => (
-                  <span key={index} className="material-tag">
-                    <i className={material.icon}></i>
-                    {material.name}
+                {product.materials.map((material: string) => (
+                  <span  className="material-tag">
+                    {material}
                   </span>
                 ))}
               </div>

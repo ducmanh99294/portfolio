@@ -33,6 +33,7 @@ const productSchema = new mongoose.Schema({
   colors: [String],      // trắng, nâu, đen...
 
   images: [String],      // url ảnh
+  features: [String],
   model3D: String,       // url .glb
   has3d: {
     type: Boolean,
