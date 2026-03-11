@@ -14,9 +14,9 @@
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.126",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
     "framer-motion": "^12.23.26",
     "gsap": "^3.14.2",
     "location": "^0.0.1",
@@ -28,6 +28,7 @@
     "shadcn-ui": "^0.9.5",
     "three": "^0.182.0",
     "typescript": "^4.9.5",
+    "vite": "^7.3.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -55,6 +56,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^25.4.0",
     "@types/react-router-hash-link": "^2.4.9",
     "autoprefixer": "^10.4.23",
     "postcss": "^8.5.6",
