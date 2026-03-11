@@ -1,9 +1,9 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap'; // 1. Import GSAP
 import '../assets/product.css';
 import { Link } from 'react-router-dom';
 
-const SimpleProductsPage: React.FC = () => {
+const SimpleProductsPage = () => {
   // Dữ liệu sản phẩm
   const products: any[] = [
     {

@@ -1,8 +1,9 @@
-import { apiGet, apiPost } from "./api";
+import { apiGet, apiPost, apiPut } from "./api";
 
 export const getMe = async () => {
     return await apiGet("/api/auth/me");
 };
+
 
 export const register = async (email: string, password: string) => {
   try {

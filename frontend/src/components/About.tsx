@@ -7,7 +7,7 @@ import a2 from '../public/a2.png'
 // Đăng ký Plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-const About: React.FC = () => {
+const About: React.FC = () => {         
   // Tạo ref cho container bao quanh để scope (giới hạn) vùng chọn của GSAP
   const containerRef = useRef<HTMLElement>(null);
 
