@@ -1,6 +1,6 @@
-// const API_URL = "http://localhost:3000" ;
+const API_URL = "https://portfolio-1-wos1.onrender.com" ;
 // https://portfolio-1-wos1.onrender.com
-const API_URL = process.env.VITE_API_URL;
+// const API_URL = process.env.VITE_API_URL;
 
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
