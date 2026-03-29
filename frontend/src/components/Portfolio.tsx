@@ -1,72 +1,118 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PortfolioItem } from '../types';
 import '../assets/portfolio.css';
-
+import portfolio1 from "../public/portfolio-1.jpg";
+import portfolio2 from "../public/portfolio-2.jpg";
+import portfolio3 from "../public/portfolio-3.jpg";
 // Đăng ký Plugin
 gsap.registerPlugin(ScrollTrigger);
 
 const Portfolio: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  const portfolioItems: PortfolioItem[] = [
-    {
-      id: 1,
-      title: 'Modern Villa',
-      description: 'Complete 3D design of a 2-story villa with minimalist style, combining open spaces and natural light.',
-      imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80'
-    },
-    {
-      id: 2,
-      title: 'Luxury Apartment',
-      description: '3D model of a 3-bedroom apartment with sophisticated interior design focused on functionality and aesthetics.',
-      imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1558&q=80'
-    },
-    {
-      id: 3,
-      title: 'Contemporary Townhouse',
-      description: '3D design of a 4-story townhouse with impressive façade and interior spaces optimized for multi-generational families.',
-      imageUrl: 'https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80'
-    },
-    {
-      id: 4,
-      title: 'Creative Workspace',
-      description: 'Office interior design with an open concept, combining work and relaxation areas.',
-      imageUrl: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80'
-    },
+  const projects: any[] = [
+    // {
+    //   id: 1,
+    //   title: 'Modern Villa',
+    //   description: 'Complete 3D design of a 2-story villa with minimalist style, combining open spaces and natural light.',
+    //   imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=1471&q=80'
+    // },
+    // {
+    //   id: 2,
+    //   title: 'Luxury Apartment',
+    //   description: '3D model of a 3-bedroom apartment with sophisticated interior design focused on functionality and aesthetics.',
+    //   imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1558&q=80'
+    // },
+    // {
+    //   id: 3,
+    //   title: 'Contemporary Townhouse',
+    //   description: '3D design of a 4-story townhouse with impressive façade and interior spaces optimized for multi-generational families.',
+    //   imageUrl: 'https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80'
+    // },
+    // {
+    //   id: 4,
+    //   title: 'Creative Workspace',
+    //   description: 'Office interior design with an open concept, combining work and relaxation areas.',
+    //   imageUrl: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80'
+    // },
+  {
+    image: portfolio1,
+    title: "The Hearth Residence",
+    subtitle: "Stone · Timber · Light",
+    alt: "Living room with stone fireplace and timber beams",
+  },
+  {
+    image: portfolio2,
+    title: "Artisan Kitchen",
+    subtitle: "Walnut · Concrete · Copper",
+    alt: "Modern kitchen with handcrafted wooden cabinetry",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&auto=format&fit=crop",
+    title: "The Sanctuary",
+    subtitle: "Stone · Cedar · Water",
+    alt: "Luxury bathroom with freestanding stone bathtub",
+  },
   ];
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      
+    const ctx = gsap.context(() => {
+
+      // 🔥 TIMELINE CHÍNH
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%", // Bắt đầu chạy khi section chạm 70% màn hình
-          end: "bottom 20%",
+          start: "top 75%",
           toggleActions: "play none none reverse"
         }
       });
 
-      // 1. Tiêu đề xuất hiện trước
-      tl.from(".section-title, .section-subtitle", {
-        y: 40,
+      // 👉 TITLE REVEAL (tách từng dòng)
+      tl.from(".work-subtitle", {
+        y: 30,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out"
+        duration: 0.6,
+        ease: "power2.out"
       });
 
-      // 2. Các dự án (items) xuất hiện lần lượt
-      tl.from(".portfolio-item", {
-        y: 80,           // Trượt từ dưới lên 80px
-        opacity: 0,      // Từ mờ sang rõ
-        duration: 1,     // Thời gian chạy 1s cho mỗi item
-        stagger: 0.2,    // Mỗi item cách nhau 0.2s
-        ease: "power3.out", // Hiệu ứng trượt êm, sang trọng (phù hợp với kiến trúc)
-        clearProps: "all" // Quan trọng: Xóa các thuộc tính transform sau khi chạy xong để không ảnh hưởng hiệu ứng hover CSS (nếu có)
-      }, "-=0.5"); // Chạy đè lên animation tiêu đề 0.5s để mượt hơn
+      tl.from(".work-title span", {
+        y: 80,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power4.out"
+      }, "-=0.3");
+
+      // 👉 ITEMS (cinematic hơn)
+      tl.from(".work-item", {
+        y: 100,
+        opacity: 0,
+        scale: 0.95,
+        filter: "blur(10px)",
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        clearProps: "all"
+      }, "-=0.4");
+
+
+      // 🔥 PARALLAX IMAGE (rất đáng giá)
+      gsap.utils.toArray<HTMLElement>(".work-image-wrapper").forEach((el) => {
+        const img = el.querySelector("img");
+
+        gsap.to(img, {
+          yPercent: 10,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      });
+
 
     }, sectionRef);
 
@@ -74,24 +120,45 @@ const Portfolio: React.FC = () => {
   }, []);
 
   return (
-    <section className="section" id="portfolio" ref={sectionRef}>
-      <div className="container">
-        <h2 className="section-title">Portfolio</h2>
-        <p className="section-subtitle">Some of my notable projects from recent times.</p>
-        
-        <div className="portfolio-grid">
-          {portfolioItems.map((item) => (
-            <div className="portfolio-item" key={item.id}>
-              <div className="portfolio-img">
-                <img src={item.imageUrl} alt={item.title} />
-              </div>
-              <div className="portfolio-info">
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
+    <section id="work" className="work-section">
+      <div className="work-header">
+        <p className="work-subtitle">
+          Selected Work
+        </p>
+
+        <h2 className="work-title">
+          <span>Rooms that remember</span>
+          <span>who built them.</span>
+        </h2>
+      </div>
+
+      <div className="work-grid">
+        {projects.map((project, i) => (
+          <div
+            key={project.title}
+            className={`work-item ${
+              i === 0 ? "span-7" : i === 1 ? "span-5" : "span-12"
+            }`}
+          >
+            <div className={`work-image-wrapper ${i === 2 ? "tall" : ""}`}>
+              <img
+                src={project.image}
+                alt={project.alt}
+                className="work-image"
+              />
+              <div className="work-overlay-depth" />
             </div>
-          ))}
-        </div>
+
+            <div className="work-info">
+              <p className="work-item-subtitle">
+                {project.subtitle}
+              </p>
+              <h3 className="work-item-title">
+                {project.title}
+              </h3>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

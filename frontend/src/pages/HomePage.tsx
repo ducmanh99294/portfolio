@@ -14,10 +14,10 @@ const CheckoutPageWrapper: React.FC = () => {
       <Hero />
       <About />
       <Skills />
-      <Process />
       <Portfolio />
-      <SimpleProductsPage/>
       <Feedback/>
+      <Process />
+      <SimpleProductsPage/>
       <Contact />
     </div>
   );

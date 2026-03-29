@@ -40,28 +40,120 @@
   object-fit: cover;
 }
 
-/* bg-gradient-to-r from-background via-background/90 to-background/60 */
-.hero-bg__overlay-right {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.9),
-    rgba(0, 0, 0, 0.9),
-    rgba(0, 0, 0, 0.6)
-  );
+/* Wrapper (relative z-10 px-6 md:px-12 pb-12 md:pb-20 pt-40) */
+.hero-content-wrapper {
+  position: relative;
+  z-index: 10;
+
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 160px;
+  padding-bottom: 48px;
 }
 
-/* bg-gradient-to-t from-background via-transparent to-transparent */
-.hero-bg__overlay-top {
+/* md breakpoint */
+@media (min-width: 768px) {
+  .hero-content-wrapper {
+    padding-left: 48px;
+    padding-right: 48px;
+    padding-bottom: 80px;
+  }
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.7); /* text-primary-foreground/70 */
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .hero-subtitle {
+    font-size: 14px;
+  }
+}
+
+/* Title */
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 0.95;
+
+  color: #fff; /* text-primary-foreground */
+  max-width: 400px; /* max-w-4xl */
+
+  /* text-carved (nếu bạn có hiệu ứng riêng thì giữ, chưa có thì thêm nhẹ) */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 96px;
+  }
+}
+
+/* Description */
+.hero-description {
+  font-family: var(--font-body);
+  font-size: 14px;
+
+  color: rgba(255, 255, 255, 0.6); /* text-primary-foreground/60 */
+  margin-top: 32px;
+  max-width: 512px; /* max-w-lg */
+}
+
+@media (min-width: 768px) {
+  .hero-description {
+    font-size: 16px;
+  }
+}
+
+/* Cover full parent (thay cho absolute inset-0) */
+.hero-sketch-mask,
+.hero-glow,
+.hero-shadow {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9),
-    transparent,
-    transparent
-  );
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Transition opacity (thay transition-opacity duration-300) */
+.hero-sketch-mask {
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.hero-title .char {
+  display: inline-block;
+}
+
+/* Glow effect */
+.hero-glow {
+  pointer-events: none;
+}
+
+/* Shadow overlay */
+.hero-shadow {
+  pointer-events: none;
+}
+
+/* Nếu bạn chưa có inset-depth-heavy thì thêm luôn */
+.hero-shadow {
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
 }
 
 @media (max-width: 992px) {
